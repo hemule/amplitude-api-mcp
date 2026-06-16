@@ -88,6 +88,33 @@ Optionally scoped to a single event type via `event_type`.
 
 ## Installation
 
+### Quick start — run via `npx` (no checkout)
+
+The simplest setup: have your MCP client run the server straight from GitHub.
+`npx` clones and builds it on first use; no manual checkout or registry needed.
+
+```json
+{
+  "mcpServers": {
+    "amplitude": {
+      "command": "npx",
+      "args": ["-y", "github:hemule/amplitude-api-mcp"],
+      "env": {
+        "AMPLITUDE_API_KEY": "your-api-key",
+        "AMPLITUDE_SECRET_KEY": "your-secret-key",
+        "AMPLITUDE_REGION": "us"
+      }
+    }
+  }
+}
+```
+
+Pin to a released tag for stability (recommended), e.g.
+`"github:hemule/amplitude-api-mcp#v0.1.0"`.
+
+Then jump to [Configure credentials](#3-configure-credentials) for the full env
+reference. The rest of this section covers building from a local checkout.
+
 ### 1. Get your Amplitude API credentials
 
 In Amplitude: **Settings → Projects → _your project_ → General**. Copy the
