@@ -13,7 +13,7 @@ const logger = createLogger('taxonomy:user-properties');
  */
 export function registerUserPropertyTools(server: McpServer, client: AmplitudeClient): void {
   server.registerTool(
-    'list_user_properties',
+    'taxonomy_user_properties_list',
     {
       description: 'List all user properties. Optionally include soft-deleted ones.',
       inputSchema: {
@@ -30,13 +30,13 @@ export function registerUserPropertyTools(server: McpServer, client: AmplitudeCl
         });
         return ok('Fetched user properties.', { result: data });
       } catch (e) {
-        return fail(e, logger, 'list_user_properties');
+        return fail(e, logger, 'taxonomy_user_properties_list');
       }
     },
   );
 
   server.registerTool(
-    'get_user_property',
+    'taxonomy_user_properties_get',
     {
       description: 'Get a single user property by name.',
       inputSchema: {
@@ -54,13 +54,13 @@ export function registerUserPropertyTools(server: McpServer, client: AmplitudeCl
         });
         return ok(`Fetched user property "${user_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'get_user_property');
+        return fail(e, logger, 'taxonomy_user_properties_get');
       }
     },
   );
 
   server.registerTool(
-    'create_user_property',
+    'taxonomy_user_properties_create',
     {
       description: 'Create a new user property.',
       inputSchema: {
@@ -85,13 +85,13 @@ export function registerUserPropertyTools(server: McpServer, client: AmplitudeCl
         });
         return ok(`Created user property "${user_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'create_user_property');
+        return fail(e, logger, 'taxonomy_user_properties_create');
       }
     },
   );
 
   server.registerTool(
-    'update_user_property',
+    'taxonomy_user_properties_update',
     {
       description: 'Update an existing user property.',
       inputSchema: {
@@ -114,15 +114,15 @@ export function registerUserPropertyTools(server: McpServer, client: AmplitudeCl
         });
         return ok(`Updated user property "${user_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'update_user_property');
+        return fail(e, logger, 'taxonomy_user_properties_update');
       }
     },
   );
 
   server.registerTool(
-    'delete_user_property',
+    'taxonomy_user_properties_delete',
     {
-      description: 'Soft-delete a user property. Can be restored with restore_user_property.',
+      description: 'Soft-delete a user property. Can be restored with taxonomy_user_properties_restore.',
       inputSchema: {
         user_property: z.string().min(1).describe('The user property name to delete'),
       },
@@ -141,13 +141,13 @@ export function registerUserPropertyTools(server: McpServer, client: AmplitudeCl
         });
         return ok(`Deleted user property "${user_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'delete_user_property');
+        return fail(e, logger, 'taxonomy_user_properties_delete');
       }
     },
   );
 
   server.registerTool(
-    'restore_user_property',
+    'taxonomy_user_properties_restore',
     {
       description: 'Restore a previously soft-deleted user property.',
       inputSchema: {
@@ -163,7 +163,7 @@ export function registerUserPropertyTools(server: McpServer, client: AmplitudeCl
         });
         return ok(`Restored user property "${user_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'restore_user_property');
+        return fail(e, logger, 'taxonomy_user_properties_restore');
       }
     },
   );

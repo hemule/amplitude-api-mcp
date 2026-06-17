@@ -19,7 +19,7 @@ const TS_FORMAT_HINT = 'Format "yyyy-MM-dd HH:mm:ss" in UTC, e.g. "2025-11-01 07
  */
 export function registerReleaseTools(server: McpServer, client: AmplitudeClient): void {
   server.registerTool(
-    'create_release',
+    'releases_create',
     {
       description:
         'Create a release marker. By default it appears as an annotation across charts ' +
@@ -49,7 +49,7 @@ export function registerReleaseTools(server: McpServer, client: AmplitudeClient)
         });
         return ok(`Created release "${input.title}" (${input.version}).`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'create_release');
+        return fail(e, logger, 'releases_create');
       }
     },
   );

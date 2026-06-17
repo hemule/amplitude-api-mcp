@@ -11,7 +11,7 @@ import {
 } from './tools/index.js';
 
 const logger = createLogger('amplitude-api-mcp');
-const VERSION = '0.1.0';
+const VERSION = '0.2.0';
 
 async function main(): Promise<void> {
   // Fail fast with a readable error if credentials/region are misconfigured.

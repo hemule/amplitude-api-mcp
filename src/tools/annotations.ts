@@ -15,7 +15,7 @@ const ISO_8601_HINT = 'ISO 8601 timestamp, e.g. "2025-11-01T07:00:00+00:00"';
  */
 export function registerAnnotationTools(server: McpServer, client: AmplitudeClient): void {
   server.registerTool(
-    'create_annotation',
+    'annotations_create',
     {
       description:
         'Create a chart annotation. Omit chart_id to make it globally visible across charts.',
@@ -38,13 +38,13 @@ export function registerAnnotationTools(server: McpServer, client: AmplitudeClie
         });
         return ok(`Created annotation "${label}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'create_annotation');
+        return fail(e, logger, 'annotations_create');
       }
     },
   );
 
   server.registerTool(
-    'list_annotations',
+    'annotations_list',
     {
       description: 'List chart annotations, optionally filtered by category, chart, or time range.',
       inputSchema: {
@@ -64,13 +64,13 @@ export function registerAnnotationTools(server: McpServer, client: AmplitudeClie
         });
         return ok('Fetched annotations.', { result: data });
       } catch (e) {
-        return fail(e, logger, 'list_annotations');
+        return fail(e, logger, 'annotations_list');
       }
     },
   );
 
   server.registerTool(
-    'get_annotation',
+    'annotations_get',
     {
       description: 'Get a single chart annotation by its numeric id.',
       inputSchema: {
@@ -86,7 +86,7 @@ export function registerAnnotationTools(server: McpServer, client: AmplitudeClie
         });
         return ok(`Fetched annotation ${annotation_id}.`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'get_annotation');
+        return fail(e, logger, 'annotations_get');
       }
     },
   );

@@ -13,7 +13,7 @@ const logger = createLogger('taxonomy:event-types');
  */
 export function registerEventTypeTools(server: McpServer, client: AmplitudeClient): void {
   server.registerTool(
-    'list_event_types',
+    'taxonomy_event_types_list',
     {
       description: 'List all event types in the taxonomy. Optionally include soft-deleted events.',
       inputSchema: {
@@ -30,13 +30,13 @@ export function registerEventTypeTools(server: McpServer, client: AmplitudeClien
         });
         return ok('Fetched event types.', { result: data });
       } catch (e) {
-        return fail(e, logger, 'list_event_types');
+        return fail(e, logger, 'taxonomy_event_types_list');
       }
     },
   );
 
   server.registerTool(
-    'get_event_type',
+    'taxonomy_event_types_get',
     {
       description: 'Get a single event type from the taxonomy by its exact name.',
       inputSchema: {
@@ -52,13 +52,13 @@ export function registerEventTypeTools(server: McpServer, client: AmplitudeClien
         });
         return ok(`Fetched event type "${event_type}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'get_event_type');
+        return fail(e, logger, 'taxonomy_event_types_get');
       }
     },
   );
 
   server.registerTool(
-    'create_event_type',
+    'taxonomy_event_types_create',
     {
       description: 'Create a new event type in the taxonomy.',
       inputSchema: {
@@ -80,13 +80,13 @@ export function registerEventTypeTools(server: McpServer, client: AmplitudeClien
         });
         return ok(`Created event type "${event_type}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'create_event_type');
+        return fail(e, logger, 'taxonomy_event_types_create');
       }
     },
   );
 
   server.registerTool(
-    'update_event_type',
+    'taxonomy_event_types_update',
     {
       description: 'Update an existing event type in the taxonomy.',
       inputSchema: {
@@ -110,15 +110,15 @@ export function registerEventTypeTools(server: McpServer, client: AmplitudeClien
         });
         return ok(`Updated event type "${event_type}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'update_event_type');
+        return fail(e, logger, 'taxonomy_event_types_update');
       }
     },
   );
 
   server.registerTool(
-    'delete_event_type',
+    'taxonomy_event_types_delete',
     {
-      description: 'Soft-delete an event type. Can be restored with restore_event_type.',
+      description: 'Soft-delete an event type. Can be restored with taxonomy_event_types_restore.',
       inputSchema: {
         event_type: z.string().min(1).describe('The event type name to delete'),
       },
@@ -137,13 +137,13 @@ export function registerEventTypeTools(server: McpServer, client: AmplitudeClien
         });
         return ok(`Deleted event type "${event_type}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'delete_event_type');
+        return fail(e, logger, 'taxonomy_event_types_delete');
       }
     },
   );
 
   server.registerTool(
-    'restore_event_type',
+    'taxonomy_event_types_restore',
     {
       description: 'Restore a previously soft-deleted event type.',
       inputSchema: {
@@ -159,7 +159,7 @@ export function registerEventTypeTools(server: McpServer, client: AmplitudeClien
         });
         return ok(`Restored event type "${event_type}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'restore_event_type');
+        return fail(e, logger, 'taxonomy_event_types_restore');
       }
     },
   );

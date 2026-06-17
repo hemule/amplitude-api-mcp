@@ -16,7 +16,7 @@ const logger = createLogger('taxonomy:categories');
  */
 export function registerCategoryTools(server: McpServer, client: AmplitudeClient): void {
   server.registerTool(
-    'list_categories',
+    'taxonomy_categories_list',
     {
       description: 'List all event categories (with their numeric ids).',
       inputSchema: {},
@@ -27,13 +27,13 @@ export function registerCategoryTools(server: McpServer, client: AmplitudeClient
         const data = await client.request({ method: 'GET', path: '/api/2/taxonomy/category' });
         return ok('Fetched categories.', { result: data });
       } catch (e) {
-        return fail(e, logger, 'list_categories');
+        return fail(e, logger, 'taxonomy_categories_list');
       }
     },
   );
 
   server.registerTool(
-    'get_category',
+    'taxonomy_categories_get',
     {
       description: 'Get a single event category by its name.',
       inputSchema: {
@@ -49,13 +49,13 @@ export function registerCategoryTools(server: McpServer, client: AmplitudeClient
         });
         return ok(`Fetched category "${category_name}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'get_category');
+        return fail(e, logger, 'taxonomy_categories_get');
       }
     },
   );
 
   server.registerTool(
-    'create_category',
+    'taxonomy_categories_create',
     {
       description: 'Create a new event category.',
       inputSchema: {
@@ -72,15 +72,15 @@ export function registerCategoryTools(server: McpServer, client: AmplitudeClient
         });
         return ok(`Created category "${category_name}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'create_category');
+        return fail(e, logger, 'taxonomy_categories_create');
       }
     },
   );
 
   server.registerTool(
-    'update_category',
+    'taxonomy_categories_update',
     {
-      description: 'Rename an event category by its numeric id (from list_categories).',
+      description: 'Rename an event category by its numeric id (from taxonomy_categories_list).',
       inputSchema: {
         category_id: z.union([z.string(), z.number()]).describe('The numeric category id'),
         category_name: z.string().min(1).describe('The new category name'),
@@ -96,15 +96,15 @@ export function registerCategoryTools(server: McpServer, client: AmplitudeClient
         });
         return ok(`Updated category ${category_id} → "${category_name}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'update_category');
+        return fail(e, logger, 'taxonomy_categories_update');
       }
     },
   );
 
   server.registerTool(
-    'delete_category',
+    'taxonomy_categories_delete',
     {
-      description: 'Delete an event category by its numeric id (from list_categories).',
+      description: 'Delete an event category by its numeric id (from taxonomy_categories_list).',
       inputSchema: {
         category_id: z.union([z.string(), z.number()]).describe('The numeric category id'),
       },
@@ -123,7 +123,7 @@ export function registerCategoryTools(server: McpServer, client: AmplitudeClient
         });
         return ok(`Deleted category ${category_id}.`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'delete_category');
+        return fail(e, logger, 'taxonomy_categories_delete');
       }
     },
   );

@@ -14,7 +14,7 @@ const logger = createLogger('taxonomy:event-properties');
  */
 export function registerEventPropertyTools(server: McpServer, client: AmplitudeClient): void {
   server.registerTool(
-    'list_event_properties',
+    'taxonomy_event_properties_list',
     {
       description: 'List event properties, optionally scoped to a single event type.',
       inputSchema: {
@@ -31,13 +31,13 @@ export function registerEventPropertyTools(server: McpServer, client: AmplitudeC
         });
         return ok('Fetched event properties.', { result: data });
       } catch (e) {
-        return fail(e, logger, 'list_event_properties');
+        return fail(e, logger, 'taxonomy_event_properties_list');
       }
     },
   );
 
   server.registerTool(
-    'get_event_property',
+    'taxonomy_event_properties_get',
     {
       description: 'Get a single event property by name, optionally scoped to an event type.',
       inputSchema: {
@@ -55,13 +55,13 @@ export function registerEventPropertyTools(server: McpServer, client: AmplitudeC
         });
         return ok(`Fetched event property "${event_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'get_event_property');
+        return fail(e, logger, 'taxonomy_event_properties_get');
       }
     },
   );
 
   server.registerTool(
-    'create_event_property',
+    'taxonomy_event_properties_create',
     {
       description: 'Create a new event property.',
       inputSchema: {
@@ -86,13 +86,13 @@ export function registerEventPropertyTools(server: McpServer, client: AmplitudeC
         });
         return ok(`Created event property "${event_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'create_event_property');
+        return fail(e, logger, 'taxonomy_event_properties_create');
       }
     },
   );
 
   server.registerTool(
-    'update_event_property',
+    'taxonomy_event_properties_update',
     {
       description: 'Update an existing event property.',
       inputSchema: {
@@ -121,15 +121,15 @@ export function registerEventPropertyTools(server: McpServer, client: AmplitudeC
         });
         return ok(`Updated event property "${event_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'update_event_property');
+        return fail(e, logger, 'taxonomy_event_properties_update');
       }
     },
   );
 
   server.registerTool(
-    'delete_event_property',
+    'taxonomy_event_properties_delete',
     {
-      description: 'Soft-delete an event property. Can be restored with restore_event_property.',
+      description: 'Soft-delete an event property. Can be restored with taxonomy_event_properties_restore.',
       inputSchema: {
         event_property: z.string().min(1).describe('The event property name to delete'),
         event_type: z.string().optional().describe('Event type the property is scoped to'),
@@ -150,13 +150,13 @@ export function registerEventPropertyTools(server: McpServer, client: AmplitudeC
         });
         return ok(`Deleted event property "${event_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'delete_event_property');
+        return fail(e, logger, 'taxonomy_event_properties_delete');
       }
     },
   );
 
   server.registerTool(
-    'restore_event_property',
+    'taxonomy_event_properties_restore',
     {
       description: 'Restore a previously soft-deleted event property.',
       inputSchema: {
@@ -174,7 +174,7 @@ export function registerEventPropertyTools(server: McpServer, client: AmplitudeC
         });
         return ok(`Restored event property "${event_property}".`, { result: data });
       } catch (e) {
-        return fail(e, logger, 'restore_event_property');
+        return fail(e, logger, 'taxonomy_event_properties_restore');
       }
     },
   );
