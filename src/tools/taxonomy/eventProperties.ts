@@ -39,19 +39,20 @@ export function registerEventPropertyTools(server: McpServer, client: AmplitudeC
   server.registerTool(
     'taxonomy_event_properties_get',
     {
-      description: 'Get a single event property by name, optionally scoped to an event type.',
+      description:
+        'Get a single event property by name. Resolves the property whether it is global or ' +
+        'scoped to an event type. (Uses the path endpoint GET /event-property/:name, which — ' +
+        'unlike the documented query form — actually returns one property.)',
       inputSchema: {
         event_property: z.string().min(1).describe('The event property name'),
-        event_type: z.string().optional().describe('Scope to this event type'),
       },
       annotations: { title: 'Get Event Property', readOnlyHint: true },
     },
-    async ({ event_property, event_type }) => {
+    async ({ event_property }) => {
       try {
         const data = await client.request({
           method: 'GET',
-          path: '/api/2/taxonomy/event-property',
-          query: { event_property, event_type },
+          path: `/api/2/taxonomy/event-property/${encodeURIComponent(event_property)}`,
         });
         return ok(`Fetched event property "${event_property}".`, { result: data });
       } catch (e) {

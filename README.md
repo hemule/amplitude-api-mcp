@@ -33,7 +33,7 @@ Optionally scoped to a single event type via `event_type`.
 | Tool | Description | Key params |
 |---|---|---|
 | `taxonomy_event_properties_list` | List event properties | `event_type?` |
-| `taxonomy_event_properties_get` | Get one event property | `event_property`, `event_type?` |
+| `taxonomy_event_properties_get` | Get one event property by name (global or scoped) | `event_property` |
 | `taxonomy_event_properties_create` | Create an event property | `event_property`, `type?`, `enum_values?`, `is_required?`, `event_type?` |
 | `taxonomy_event_properties_update` | Update an event property | `event_property`, `description?`, `type?`, `enum_values?`, … |
 | `taxonomy_event_properties_delete` | Soft-delete an event property | `event_property`, `event_type?` |
