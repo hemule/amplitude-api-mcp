@@ -2,16 +2,16 @@
 
 MCP server for the **Amplitude Analytics REST API**. Lets an MCP client (Claude
 Code, Claude Desktop, etc.) manage a project's **taxonomy**, **chart
-annotations**, and **releases** programmatically.
+annotations**, and **releases**, and **query event data** programmatically.
 
 > This is **not** the official Amplitude product MCP — it's a focused server for
-> the Analytics REST API (Taxonomy / Annotations / Releases).
+> the Analytics REST API (Taxonomy / Annotations / Releases / Dashboard).
 
 ---
 
 ## Tools
 
-27 tools across three domains. All write tools carry the appropriate MCP
+29 tools across four domains. All write tools carry the appropriate MCP
 annotations (`readOnlyHint`, `destructiveHint`, `idempotentHint`) and return a
 structured `{ success, error }` result with `isError` set on failure.
 
@@ -77,6 +77,18 @@ Optionally scoped to a single event type via `event_type`.
 |---|---|---|
 | `releases_create` | Create a release marker | `version`, `release_start` (`yyyy-MM-dd HH:mm:ss` UTC), `title`, `release_end?`, `description?`, `platforms?`, `chart_visibility?` |
 
+### Dashboard — reading event data
+
+| Tool | Description | Key params |
+|---|---|---|
+| `dashboard_events_list` | List events observed in the data (weekly totals, flags) | — |
+| `dashboard_events_segmentation` | Time-series count of an event over a date range | `event_type`, `start`, `end` (YYYYMMDD), `metric?`, `interval?`, `limit?`, `group_by?`, `group_by_type?`, `filters?` |
+
+> `dashboard_events_list` is the **observed** event list (from data) — distinct
+> from `taxonomy_event_types_list`, which is the **planned** taxonomy. Dates
+> accept `YYYYMMDD` or `YYYY-MM-DD`; `interval` is one of
+> `realtime`/`hourly`/`daily`/`weekly`/`monthly`.
+
 > The Amplitude API supports **creating** releases only — there is no documented
 > update or list endpoint (those actions live in the Amplitude UI).
 >
@@ -110,7 +122,7 @@ The simplest setup: have your MCP client run the server straight from GitHub.
 ```
 
 Pin to a released tag for stability (recommended), e.g.
-`"github:hemule/amplitude-api-mcp#v0.2.0"`.
+`"github:hemule/amplitude-api-mcp#v0.3.0"`.
 
 Then jump to [Configure credentials](#3-configure-credentials) for the full env
 reference. The rest of this section covers building from a local checkout.

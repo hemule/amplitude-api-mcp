@@ -6,12 +6,13 @@ import { loadConfig } from './config.js';
 import { createLogger } from './logger.js';
 import {
   registerAnnotationTools,
+  registerDashboardTools,
   registerReleaseTools,
   registerTaxonomyTools,
 } from './tools/index.js';
 
 const logger = createLogger('amplitude-api-mcp');
-const VERSION = '0.2.0';
+const VERSION = '0.3.0';
 
 async function main(): Promise<void> {
   // Fail fast with a readable error if credentials/region are misconfigured.
@@ -25,6 +26,7 @@ async function main(): Promise<void> {
   registerTaxonomyTools(server, client);
   registerAnnotationTools(server, client);
   registerReleaseTools(server, client);
+  registerDashboardTools(server, client);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
